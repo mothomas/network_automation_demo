@@ -1,0 +1,21 @@
+---
+
+    - name: shutting down all interface
+      cisco.ios.ios_config:
+        lines:
+        - shutdown
+        parents: "interface {{item.name}}"
+      when: item.name != 'GigabitEthernet4'
+      with_items: "{{ l3_interfaces}}"
+
+    - name: Delete all OSPF processes
+      cisco.ios.ios_ospfv2:
+        state: deleted
+
+    - name: "Delete attributes of interface in csrs"
+      cisco.ios.ios_l3_interfaces:
+        config:
+        - name: "{{item.name}}"
+        state: deleted
+      when: item.name != 'GigabitEthernet4'
+      with_items: "{{ l3_interfaces}}"

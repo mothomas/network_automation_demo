@@ -1,0 +1,25 @@
+l3_interfaces:
+-   ipv4:
+    -   address: 10.0.0.6/30
+    name: GigabitEthernet1
+-   ipv4:
+    -   address: 10.0.0.9/30
+    name: GigabitEthernet2
+-   name: GigabitEthernet3
+-   ipv4:
+    -   address: 10.199.199.222/24
+    name: GigabitEthernet4
+-   ipv4:
+    -   address: 3.3.3.3/32
+    name: Loopback0
+ospfv2:
+    processes:
+    -   network:
+        -   address: 3.3.3.3
+            area: '0'
+            wildcard_bits: 0.0.0.0
+        -   address: 10.0.0.0
+            area: '0'
+            wildcard_bits: 0.0.0.255
+        process_id: 1
+

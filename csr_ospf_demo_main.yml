@@ -1,0 +1,34 @@
+---
+- name: Update interface
+  hosts: csr
+  gather_facts: false
+
+  tasks:
+
+    - name: "create ospf config for demo"
+      include_tasks: 
+        file: tasks/csr_ospf_demo_create.yml
+        apply:
+          tags: create      
+      tags:
+      - create
+
+    - name: "backup ospf config for demo"
+      include_tasks: 
+        file: tasks/csr_ospf_demo_backup.yml
+        apply:
+          tags:
+          - create
+          - backup        
+      tags:
+      - create     
+      - backup 
+       
+    - name: "delete ospf config for demo"
+      include_tasks: 
+        file: tasks/csr_ospf_demo_delete.yml
+        apply:
+          tags: delete      
+      tags:
+      - delete
+

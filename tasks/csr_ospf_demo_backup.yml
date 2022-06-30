@@ -1,0 +1,26 @@
+---
+
+          ## csr_ospf_demo_backup.yml          
+     
+     - name: Gather only the config and default facts
+       cisco.ios.ios_facts:
+          gather_subset: min
+          gather_network_resources: l3_interfaces
+       register: csr_config
+
+     - ansible.builtin.copy:
+          content: "{{csr_config.ansible_facts.ansible_network_resources | to_nice_yaml }}"  
+          dest: "./host_vars/{{inventory_hostname}}.yml"
+     
+     - name: gather ospf info
+       cisco.ios.ios_ospfv2:
+          config:
+          state: gathered
+       register: csr_ospf
+
+     - name: add info to host_vars
+       ansible.builtin.lineinfile:
+          path: "./host_vars/{{inventory_hostname}}.yml"
+          line: "{{ { 'ospfv2': csr_ospf['gathered'] } | to_nice_yaml }}"
+
+                 

@@ -1,0 +1,57 @@
+---
+    - name: bringing up  all interface
+      cisco.ios.ios_config:
+        lines:
+        - no shutdown
+        parents: "interface {{item.name}}"
+      when: item.name != 'GigabitEthernet4'
+      with_items: "{{ l3_interfaces}}"
+
+    - name: Merge provided configuration with device configuration
+      cisco.ios.ios_l3_interfaces:
+        config:
+        - name: "{{item.name}}"
+          ipv4:
+          - address: "{{item.ipv4[0].address}}"
+        state: merged 
+      when: item.ipv4[0].address is defined  and item.name != 'GigabitEthernet4'
+      with_items:
+        - "{{ l3_interfaces }}"
+
+    - name: Merge provided OSPF V2 configuration
+      cisco.ios.ios_ospfv2:
+        config:
+          processes:
+          - process_id: 1
+            areas:
+            - area_id: '0'
+              capability: true
+            network:
+            - address: "{{ item.ipv4[0].address | ipv4('address') }}"
+              wildcard_bits: 0.0.0.0
+              area: 0
+            router_id: "{{ item.ipv4[0].address | ipv4('address') }}"
+        state: merged 
+      when: item.name == 'Loopback0'  
+      with_items:
+        - "{{ l3_interfaces }}"     
+
+    - ansible.builtin.pause:
+        seconds: 7    
+
+    - name: Merge provided OSPF V2 configuration
+      cisco.ios.ios_ospfv2:
+        config:   
+          processes:
+          - process_id: 1
+            areas:
+            - area_id: '0'
+              capability: true
+            network:
+            - address: 10.0.0.0
+              wildcard_bits: 0.0.0.255
+              area: 0
+        state: merged   
+
+
+
