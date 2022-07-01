@@ -1,15 +1,13 @@
 ## network_automation_demo with Cisco CSR on EVE-NG
-Setup a demo ospf topology, using ansible playbooks. once the topology created in Eve-NG configure management 
-interface.
-  # create interface and ospf config
-  ,,,
-    ansible-playbook -i hosts.yml csr_ospf_demo_main.yml --tags create
-  ,,,
-  
+Setup a demo ospf topology using ansible playbooks. once the topology created in Eve-NG. 
+ 
+ # create interface and ospf config
+     
+    'ansible-playbook -i hosts.yml csr_ospf_demo_main.yml --tags create'
+ 
   # backup interface and ospf config
-  ,,,
-    ansible-playbook -i hosts.yml csr_ospf_demo_main.yml --tags backup
-  ,,,
+  
+    'ansible-playbook -i hosts.yml csr_ospf_demo_main.yml --tags backup'
   
   # delete interface and ospf config
   
