@@ -27,4 +27,5 @@ ospfv2:
             area: '0'
             wildcard_bits: 0.0.0.255
         process_id: 1
+        router_id: 4.4.4.4
 

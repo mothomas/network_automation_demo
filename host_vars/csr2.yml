@@ -20,8 +20,12 @@ ospfv2:
         -   area_id: '0'
             capability: true
         network:
+        -   address: 2.2.2.2
+            area: '0'
+            wildcard_bits: 0.0.0.0
         -   address: 10.0.0.0
             area: '0'
             wildcard_bits: 0.0.0.255
         process_id: 1
+        router_id: 2.2.2.2
 

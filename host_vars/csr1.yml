@@ -14,9 +14,16 @@ l3_interfaces:
     name: Loopback0
 ospfv2:
     processes:
-    -   network:
+    -   areas:
+        -   area_id: '0'
+            capability: true
+        network:
+        -   address: 1.1.1.1
+            area: '0'
+            wildcard_bits: 0.0.0.0
         -   address: 10.0.0.0
             area: '0'
             wildcard_bits: 0.0.0.255
         process_id: 1
+        router_id: 1.1.1.1
 
