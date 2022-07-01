@@ -3,11 +3,11 @@ Setup a demo ospf topology using ansible playbooks. once the topology created in
  
   ### create interface and ospf config
      
-    'ansible-playbook -i hosts.yml csr_ospf_demo_main.yml --tags create'
+    ansible-playbook -i hosts.yml csr_ospf_demo_main.yml --tags create
  
   ### backup interface and ospf config
   
-    'ansible-playbook -i hosts.yml csr_ospf_demo_main.yml --tags backup'
+    ansible-playbook -i hosts.yml csr_ospf_demo_main.yml --tags backup
   
   ### delete interface and ospf config
   
