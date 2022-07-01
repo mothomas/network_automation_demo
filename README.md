@@ -12,9 +12,9 @@ interface.
   ,,,
   
   # delete interface and ospf config
-  ,,,
-    ansible-playbook -i hosts.yml csr_ospf_demo_main.yml --tags delete
-  ,,,
+  
+    'ansible-playbook -i hosts.yml csr_ospf_demo_main.yml --tags delete'
+  
 
 
 ##Topology
